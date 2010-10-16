@@ -1,0 +1,136 @@
+head	1.2;
+access;
+symbols;
+locks; strict;
+comment	@// @;
+
+
+1.2
+date	2010.10.12.00.59.39;	author punisher;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2010.10.05.09.23.22;	author punisher;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.2
+log
+@version that works for simple case and two or three moves
+@
+text
+@/*Cesar Vargas
+ *AI Fall 2010
+ *test.cpp
+ */
+#include "Astar.h"
+#include "Square.h"
+// #include "Queue.h"
+#include "Node.h"
+// #include "SearchAlg.h"
+// #include <iostream>
+// #include <string>
+#include <sstream>
+Square start;
+Square goal;
+int counter=0;
+int array[4];
+// using namespace std;
+void parse(Square &in, string a);
+void prompt(Square &st, Square &go);
+int main(){
+  prompt(start,goal);
+  Astar test1(start,goal);
+  test1.begin();
+
+  return 0;
+}
+void parse(Square &in, string a){
+  counter++;
+  int sentinel=1;
+  int temp;
+  for(istringstream i(a); i>>temp; ){
+    array[sentinel] = temp;
+    sentinel++;
+  }
+  in.set_row(array,counter);
+}
+void prompt(Square &st, Square &go){
+  string input;
+  string choice;
+  cout << "Do you want to play a game: (Y or N)";
+  getline(cin,choice);
+  while( choice == "Y" ){
+    cout << "Enter a 3x3 square with underscore as separator, this is your star node:" <<endl;
+    getline(cin,input);
+    parse(st,input);
+    getline(cin,input);
+    parse(st,input);
+    getline(cin,input);
+    parse(st,input);
+    cout << "here is your beginning puzzle" << endl;
+    start.print();
+    counter=0;
+    cout << "Enter a 3x3 square with underscore as separator, this is your end node:" <<endl;
+    getline(cin,input);
+    parse(go,input);
+    getline(cin,input);
+    parse(go,input);
+    getline(cin,input);
+    parse(go,input);
+    cout << "here is your goal puzzle" << endl;
+    go.print();
+    counter=0;
+    cout << "Do you want to play again:(Y or N)";
+    getline(cin,choice);
+  }
+}
+void expand(){
+  start.find_zero();
+  
+}
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d5 1
+d8 4
+a11 3
+#include "SearchAlg.h"
+#include <iostream>
+#include <string>
+d17 1
+a17 1
+using namespace std;
+d21 3
+a23 18
+   prompt(start,goal);
+   node test1;
+   node test2;
+   // Queue<Square> openlist;
+   // openlist.print();
+   // openlist.insert(start);
+   // openlist.insert(goal);
+   // openlist.print();
+   // openlist.del();
+   // openlist.print();
+  // Queue<int> openlist;
+  // openlist.print();
+  // openlist.insert(1);
+  // openlist.insert(5);
+  // openlist.insert(6);
+  // openlist.print();
+  // openlist.del();
+  // openlist.print();
+d67 4
+@
