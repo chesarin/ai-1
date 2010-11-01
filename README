@@ -1,0 +1,11 @@
+Antonio Cesar Vargas
+Queens College Fall 2010
+Program 2
+
+A* program in order to solve 9 square puzzle problem.
+
+Input:Two 9x9 square of number separated with space. The first one is your goal node, and
+the second one is the start node.
+
+Output:You will get a solution to the puzzle including every step that it took
+in order to get the goal  node.
