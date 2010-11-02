@@ -47,7 +47,7 @@ bool Astar::isGoal(node in, node g){
  *it tries to see if it can move up, down, left and right. If so 
  *then it adds all these nodes into the templist list.
  */
-void Astar::expand(node input){
+void Astar::expand(node &input){
   cout << "We are in the expanding function. " << endl;
   node tempn;
   list<node> templist;
@@ -96,9 +96,7 @@ ostream& operator<<(ostream &os, node s){
 void Astar::add_expanded(list<node> temp, node father){
   node added;
   list<node>::iterator it;
-  //  while ( !temp.isEmpty() ){
   while ( !temp.empty() ){
-    //    added = temp.del();
     added = temp.front();
     temp.pop_front();
     if ( !is_member_openlist(added) && !is_member_closedlist(added) ){
@@ -156,7 +154,7 @@ void Astar::print_list(list<node> &tlist){
     cout << " " << *it;
   cout << endl;
 }
-void Astar::add_expanded_list(list<node> &tlist){
+void Astar::add_expanded_list(list<node> &tlist, node &in){
   list<node>::iterator it;
   for ( it = tlist.begin() ; it != tlist.end() ; it++ ){
     if ( !is_node_in_list(*it,test1) && !is_node_in_list(*it,test2) ){
