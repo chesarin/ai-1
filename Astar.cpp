@@ -78,6 +78,8 @@ void Astar::expand(node &input){
     templist.push_front(tempn);}
   //let's print the templist elements
   print_list(templist);
+  //let's add the nodes we just created into the openlist
+  add_expanded(templist,input);
   //  add_expanded(tempq,input);}
 }
 ostream& operator<<(ostream &os, Square s){
