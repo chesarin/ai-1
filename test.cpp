@@ -19,8 +19,6 @@ void parse(Square &in, string a);
 void prompt(Square &st, Square &go);
 int main(){
   prompt(start,goal);
-  Astar test1(start,goal);
-  test1.begin();
 
   return 0;
 }
@@ -40,7 +38,7 @@ void prompt(Square &st, Square &go){
   cout << "Do you want to play a game: (Y or N)";
   getline(cin,choice);
   while( choice == "Y" ){
-    cout << "Enter a 3x3 square with underscore as separator, this is your star node:" <<endl;
+    cout << "Enter a 3x3 square with space as separator, this is your star node:" <<endl;
     getline(cin,input);
     parse(st,input);
     getline(cin,input);
@@ -50,7 +48,7 @@ void prompt(Square &st, Square &go){
     cout << "here is your beginning puzzle" << endl;
     start.print();
     counter=0;
-    cout << "Enter a 3x3 square with underscore as separator, this is your end node:" <<endl;
+    cout << "Enter a 3x3 square with space as separator, this is your end node:" <<endl;
     getline(cin,input);
     parse(go,input);
     getline(cin,input);
@@ -60,6 +58,8 @@ void prompt(Square &st, Square &go){
     cout << "here is your goal puzzle" << endl;
     go.print();
     counter=0;
+    Astar test1(start,goal);
+    test1.begin();
     cout << "Do you want to play again:(Y or N)";
     getline(cin,choice);
   }
