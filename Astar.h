@@ -17,13 +17,13 @@ class Astar{
  Astar(Square s,Square g):start(s),goal(g){}
   void begin();
   bool isGoal(node in, node g);
-  void expand(node input);
+  void expand(node &input);
   node find_goal();
   void add_expanded(list<node> temp,node father);
   bool is_member_openlist(node in);
   bool is_member_closedlist(node in);
   void print_list(list<node> &tlist);
-  void add_expanded_list(list<node> &tlist);
+  void add_expanded_list(list<node> &tlist, node &in);
   bool is_node_in_list(node &tempnode,list<node> &tlist);
  private:
   node start,goal;
