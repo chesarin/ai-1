@@ -8,4 +8,35 @@ Input:Two 9x9 square of number separated with space. The first one is your goal 
 the second one is the start node.
 
 Output:You will get a solution to the puzzle including every step that it took
-in order to get the goal  node.
+in order to get the goal node.
+
+The following is the A* algorithm.
+
+Create a list called OpenList
+Create a list called ClosedList
+
+Create a new state for the initial node and the evaluate f*.
+
+Insert new state s into OpenList
+
+while OpenList is not empty
+ current_node <- OpenList.pop();
+ ClosedList.push( current_node );
+ if ( current_node == goal )
+    return current_node;
+ else
+    children_current_node <- expand(current_node);
+
+ for each child j of current_node
+   evaluate f* on each j
+    if not member (OpenList) and not member (ClosedList)
+      OpenList.insert(j);
+      current_node.link(j);
+   else
+     if f* of j is bettern than f* of j in OpenList
+       Replace(OpenList,j);
+       current_node.link(j);
+     if f* of j is better than f* of j value in ClosedList
+     	ClosedList.remove(j);
+	OpenList.insert(j);
+	current_node.link(j);
