@@ -23,6 +23,8 @@ class Astar{
   bool is_member_openlist(node in);
   bool is_member_closedlist(node in);
   void print_list(list<node> &tlist);
+  void add_expanded_list(list<node> &tlist);
+  bool is_node_in_list(node &tempnode,list<node> &tlist);
  private:
   node start,goal;
   Queue<node> openlist;
