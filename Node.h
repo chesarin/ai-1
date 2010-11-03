@@ -12,6 +12,7 @@ class node{
   node(){ parent=NULL;};
  node(Square in,node* q=0):data(in),parent(q),g(0){};
   bool operator==(const node &other);
+  bool operator<(const node &other);
   void inc_g();
   void set_link(node* link);
   int diff(const node &other);
