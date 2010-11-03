@@ -14,6 +14,8 @@ void Astar::begin(){
   node current_node;
   //let's check there is nothing on the open list
   while( !test1.empty() ){
+    //let's print the open list
+    print_list(test1, "Open");
     //store the front of the open list on the current_node
     current_node = test1.front();
     //delete it from the open list queue
@@ -31,11 +33,9 @@ void Astar::begin(){
       cout << "Not yet, let's expand the current_node node." << endl;
       cout << current_node << endl;
       expand(current_node);
+      test1.sort();
     }
   }
-  // if ( start.data == goal.data )
-  //   cout << " we have reached out goal" << endl;
-  // cout << " we have not reached out goal " << endl;
 }
 bool Astar::isGoal(node in, node g){
   if ( in == g )
@@ -57,27 +57,27 @@ void Astar::expand(node &input){
     tempn.move_up();
     tempn.inc_g();
     tempn.create_state(goal);
-    templist.push_front(tempn);}
+    templist.push_back(tempn);}
   if ( input.can_move_right() ){
     tempn = input;
     tempn.move_right();
     tempn.inc_g();
     tempn.create_state(goal);
-    templist.push_front(tempn);}
+    templist.push_back(tempn);}
   if ( input.can_move_bottom() ){
     tempn = input;
     tempn.move_bottom();
     tempn.inc_g();
     tempn.create_state(goal);
-    templist.push_front(tempn);}
+    templist.push_back(tempn);}
   if ( input.can_move_left() ){
     tempn = input;
     tempn.move_left();
     tempn.inc_g();
     tempn.create_state(goal);
-    templist.push_front(tempn);}
+    templist.push_back(tempn);}
   //let's print the templist elements
-  print_list(templist);
+  print_list(templist,"Temporary");
   //let's add the nodes we just created into the openlist
   add_expanded(templist,input);
   //  add_expanded(tempq,input);}
@@ -94,7 +94,6 @@ ostream& operator<<(ostream &os, Square s){
 ostream& operator<<(ostream &os, node s){
   return  os << s.data << " h " << s.h << " g " << s.g << " f " << s.f << " ";
 }
-//void Astar::add_expanded(Queue<node> temp, node father){
 void Astar::add_expanded(list<node> &temp, node &father){
   node added;
   list<node>::iterator it;
@@ -103,7 +102,7 @@ void Astar::add_expanded(list<node> &temp, node &father){
     temp.pop_front();
     if ( !is_member_openlist(added) && !is_member_closedlist(added) ){
       added.set_link(&father);
-      test1.push_front(added);
+      test1.push_back(added);
     } else {
       if ( is_member_openlist(added) ){
 	for ( it=test1.begin() ; it != test1.end() ; it++ ){
@@ -120,16 +119,12 @@ void Astar::add_expanded(list<node> &temp, node &father){
 	  if ( *it == added && added.f < it->f ){
 	    test2.remove(*it);
 	    added.set_link(&father);
-	    test1.push_front(added);
+	    test1.push_back(added);
 	  }//end of first inner if
 	}//end of iterator
       }//
     }//end of second inner if
   }//end of else
-  //    if ( !openlist.isMember(added) && !closedlist.isMember(added) ){
-  //      added.set_link(&father);
-  //      openlist.insert(added);
-  //}
 }
 bool Astar::is_member_openlist(node in){
   list<node>::iterator it;
@@ -149,9 +144,9 @@ bool Astar::is_member_closedlist(node in){
   }
   return sentinel;
 }
-void Astar::print_list(list<node> &tlist){
+void Astar::print_list(list<node> &tlist, string name){
   list<node>::iterator it;
-  cout << "tlist contains:";
+  cout << name <<  " contains:";
   for ( it = tlist.begin() ; it != tlist.end() ; ++it )
     cout << " " << *it;
   cout << endl;
