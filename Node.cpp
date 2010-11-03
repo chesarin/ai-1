@@ -8,6 +8,11 @@ bool node::operator==(const node &other){
     return true;
   return false;
 }
+bool node::operator<(const node &other){
+  if ( f < other.f )
+    return true;
+  return false;
+}
 void node::inc_g(){
   g++;
 }
