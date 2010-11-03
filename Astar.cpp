@@ -95,7 +95,7 @@ ostream& operator<<(ostream &os, node s){
   return  os << s.data << " h " << s.h << " g " << s.g << " f " << s.f << " ";
 }
 //void Astar::add_expanded(Queue<node> temp, node father){
-void Astar::add_expanded(list<node> temp, node father){
+void Astar::add_expanded(list<node> &temp, node &father){
   node added;
   list<node>::iterator it;
   while ( !temp.empty() ){
@@ -152,7 +152,7 @@ bool Astar::is_member_closedlist(node in){
 void Astar::print_list(list<node> &tlist){
   list<node>::iterator it;
   cout << "tlist contains:";
-  for ( it = tlist.begin() ; it != tlist.end() ; it++ )
+  for ( it = tlist.begin() ; it != tlist.end() ; ++it )
     cout << " " << *it;
   cout << endl;
 }
