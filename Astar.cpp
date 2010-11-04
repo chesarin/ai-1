@@ -8,20 +8,20 @@ void Astar::begin(){
   //let's create a new state from the start node using the start node
   //double check the naming it's confusing
   start.create_state(start);
-  //push to the front of the test1 list, this should be the openlist
-  test1.push_front(start);
+  //push to the front of the openlist list, this should be the openlist
+  openlist.push_front(start);
   //let's create a node called current
   node current_node;
   //let's check there is nothing on the open list
-  while( !test1.empty() ){
+  while( !openlist.empty() ){
     //let's print the open list
-    print_list(test1, "Open");
+    print_list(openlist, "Open");
     //store the front of the open list on the current_node
-    current_node = test1.front();
+    current_node = openlist.front();
     //delete it from the open list queue
-    test1.pop_front();
+    openlist.pop_front();
     //add current_node to the closed list
-    test2.push_front(current_node);
+    closedlist.push_front(current_node);
     //check if the node just popped actually the goal
     //if it is we just print it here but something else needs to be done.
     if ( isGoal(current_node,goal) ){
@@ -33,7 +33,7 @@ void Astar::begin(){
       cout << "Not yet, let's expand the current_node node." << endl;
       cout << current_node << endl;
       expand(current_node);
-      test1.sort();
+      openlist.sort();
     }
   }
 }
@@ -102,10 +102,10 @@ void Astar::add_expanded(list<node> &temp, node &father){
     temp.pop_front();
     if ( !is_member_openlist(added) && !is_member_closedlist(added) ){
       added.set_link(&father);
-      test1.push_back(added);
+      openlist.push_back(added);
     } else {
       if ( is_member_openlist(added) ){
-	for ( it=test1.begin() ; it != test1.end() ; it++ ){
+	for ( it=openlist.begin() ; it != openlist.end() ; it++ ){
 	  if ( *it == added && added.f < it->f ){
 	    it->f = added.f;
 	    it->h = added.h;
@@ -115,11 +115,11 @@ void Astar::add_expanded(list<node> &temp, node &father){
 	}//end of iterator
       }//end of outer if
       if ( is_member_closedlist(added) ){
-	for ( it=test2.begin() ; it != test2.end() ; it++ ){
+	for ( it=closedlist.begin() ; it != closedlist.end() ; it++ ){
 	  if ( *it == added && added.f < it->f ){
-	    test2.remove(*it);
+	    closedlist.remove(*it);
 	    added.set_link(&father);
-	    test1.push_back(added);
+	    openlist.push_back(added);
 	  }//end of first inner if
 	}//end of iterator
       }//
@@ -129,7 +129,7 @@ void Astar::add_expanded(list<node> &temp, node &father){
 bool Astar::is_member_openlist(node in){
   list<node>::iterator it;
   bool sentinel = false;
-  for ( it=test1.begin() ; it != test1.end() ; it++ ){
+  for ( it=openlist.begin() ; it != openlist.end() ; it++ ){
     if ( in == *it )
       sentinel=true;
   }
@@ -138,7 +138,7 @@ bool Astar::is_member_openlist(node in){
 bool Astar::is_member_closedlist(node in){
   list<node>::iterator it;
   bool sentinel = false;
-  for ( it=test2.begin() ; it != test2.end() ; it++ ){
+  for ( it=closedlist.begin() ; it != closedlist.end() ; it++ ){
     if ( in == *it )
       sentinel=true;
   }
@@ -150,13 +150,6 @@ void Astar::print_list(list<node> &tlist, string name){
   for ( it = tlist.begin() ; it != tlist.end() ; ++it )
     cout << " " << *it;
   cout << endl;
-}
-void Astar::add_expanded_list(list<node> &tlist, node &in){
-  list<node>::iterator it;
-  for ( it = tlist.begin() ; it != tlist.end() ; it++ ){
-    if ( !is_node_in_list(*it,test1) && !is_node_in_list(*it,test2) ){
-    }
-  }
 }
 bool Astar::is_node_in_list( node &tempnode, list<node> &tlist){
   bool decision=false;
